@@ -4,8 +4,6 @@ services:
   mythicaldash:
     build: .
     container_name: mythicaldash
-    volumes:
-      - ./data:/var/www/mythicaldash
     ports:
       - "80:80"
       - "443:443"
@@ -13,7 +11,7 @@ services:
     depends_on:
       - mariadb
     environment:
-      DB_PASSWORD: yourSecurePassword
+      MYSQL_PASSWORD: yourSecurePassword
 
   mariadb:
     image: mariadb:10.6
@@ -22,7 +20,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: yourSecurePassword
       MYSQL_DATABASE: mythicaldash_remastered
-      MYSQL_USER: mythicaldash_remastered
+      MYSQL_USER: mySQLuser
       MYSQL_PASSWORD: yourSecurePassword
     volumes:
       - mariadb_data:/var/lib/mysql
