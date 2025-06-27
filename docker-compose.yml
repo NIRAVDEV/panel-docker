@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mythicaldash:
+    build: .
+    container_name: mythicaldash
+    volumes:
+      - ./data:/var/www/mythicaldash
+    ports:
+      - "80:80"
+      - "443:443"
+      - "6000:6000"
+    depends_on:
+      - mariadb
+    environment:
+      DB_PASSWORD: yourSecurePassword
+
+  mariadb:
+    image: mariadb:10.6
+    container_name: md-mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: yourSecurePassword
+      MYSQL_DATABASE: mythicaldash_remastered
+      MYSQL_USER: mythicaldash_remastered
+      MYSQL_PASSWORD: yourSecurePassword
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:
